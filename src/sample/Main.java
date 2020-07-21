@@ -1,37 +1,89 @@
 package sample;
 
-import java.util.Scanner;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-public class Main {
-    public static void main(String args[]) {
-        Scanner in = new Scanner(System.in);
+public class Main extends Application {
 
-        ComponenteQuimico teste = new ComponenteQuimico();
-        CadastroComponentes testeCadastro = new CadastroComponentes();
-        /*int saida = 0;
+    private CadComponentesInterface cadastroComponente;
+    private CadProdutoInterface cadastroProdutos;
+    public Main() {
+        super();
+        cadastroComponente = new CadComponentesInterface();
+        cadastroProdutos = new CadProdutoInterface();
+    }
 
-        while (saida != 1) {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
-            System.out.println("Cadastre o componente: ");
+        Stage thestage = primaryStage;
+
+        GridPane painel1;
+        painel1 = new GridPane();
+        painel1.setAlignment(Pos.TOP_CENTER);
+        painel1.setHgap(10);
+        painel1.setVgap(10);
+        painel1.setPadding(new Insets(25, 25, 25, 25));
+        painel1.setGridLinesVisible(false);
 
 
+        Text scenetitle = new Text("Funcoes do sistema: ");
+        scenetitle.setId("welcome-text");
+        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        painel1.add(scenetitle, 0, 0, 2, 1);
 
-            System.out.println("Nome: ");
-            String componente = in.nextLine();
+        //Botoes de funcionalidades do sistema
 
-            System.out.println("Descricao: ");
-            String descricao = in.nextLine();
+        Button btnCadComp = new Button("Cadastrar um novo componente quimico ");
+        Button btnCadProd = new Button("Cadastrar um novo produto quimico ");
+        Button btnremove = new Button("Remover componente quimico ");
+        Button btnConsComp = new Button("Consultar todos os componentes quimicos cadastrados ");
+        Button btnConsProd = new Button("Consultar todos os produtos quimicos cadastrados ");
+        Button btnCarr = new Button("Carregar dados ");
 
-            teste.setId(1);
+        //Torna botoes visiveis
 
-            if (testeCadastro.ConsultaComponente(teste) == false) {
-                testeCadastro.CadastraComponente(teste);
-            } else {
-                System.out.println("Problema!");
+        painel1.add(btnCadComp, 0, 3, 2, 1);
+        painel1.add(btnCadProd, 0, 4, 2, 1);
+        painel1.add(btnremove, 0, 5, 2, 1);
+        painel1.add(btnConsComp, 0, 6, 2, 1);
+        painel1.add(btnConsProd, 0, 7, 2, 1);
+        painel1.add(btnCarr, 0, 8, 2, 1);
+
+        //Tratamento de eventos
+        btnCadComp.setOnAction(e -> {
+            try {
+                cadastroComponente.start(thestage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            saida = in.nextInt();
-        }
-        */
+        });
+        btnCadProd.setOnAction(e -> {
+            try {
+                cadastroProdutos.start(thestage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
 
+
+
+        Scene scene1 = new Scene(painel1, 500, 400);
+        primaryStage.setTitle("Quimicos ");
+        primaryStage.setScene(scene1);
+        primaryStage.show();
+
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

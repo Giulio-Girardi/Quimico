@@ -1,15 +1,21 @@
 package sample;
 
-public class ComponenteQuimico {
+import java.io.Serializable;
 
-    private String nome;
-    private int quantEstoque;
-    private int id;
-    private String descricaoComponente;
+public class ComponenteQuimico implements Serializable {
 
-    ComponenteQuimico(){
-        id = 0;
+    protected String nome;
+    protected int quantEstoque;
+    protected String id;
+    protected String descricaoComponente;
+
+    ComponenteQuimico() {
+
     }
+    ComponenteQuimico(String nome) {
+        this.nome = nome;
+    }
+
 
     public String getNome() {
         return nome;
@@ -27,11 +33,11 @@ public class ComponenteQuimico {
         this.quantEstoque = quantEstoque;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
